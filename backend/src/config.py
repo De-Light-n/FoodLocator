@@ -7,11 +7,22 @@ class Config(BaseSettings):
         case_sensitive=True,
     )
 
-    app_env: str = 'development'
-    app_debug: bool = True
-    app_host: str = 'localhost'
-    app_port: int = 8000
+    APP_ENV: str = 'development'
+    APP_DEBUG: bool = True
+    APP_HOST: str = 'localhost'
+    APP_PORT: int = 8000
+
+    DB_USER: str = 'postgres'
+    DB_PASSWORD: str = '456123'
+    DB_NAME: str = 'food_locator'
+    DB_HOST: str = 'localhost'
+    DB_PORT: int = 5432
+
+    SECRET_KEY: str = "secret_key"
     
-    database_url: str = 'sqlite:///./test.db'
-    
+    @property
+    def DATABASE_URL(self) -> str:
+        return f"postgresql://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+
 config = Config()
+
